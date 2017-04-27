@@ -38,7 +38,7 @@ let createGuildRole = (guildMember, hex, msg) => {
         existingRole.edit(newRole)
             .then((roleData) => {
                 msg.channel.sendMessage(`Successfully edited color of ${roleData.name} to #${roleData.color.toString(16)}.`);
-                setRolePosition(guildMember, existingRole, msg)
+                assignGuildMemberRole(guildMember, existingRole, msg);
             });
     } else {
         guild.createRole(newRole)
