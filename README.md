@@ -20,5 +20,10 @@ This is a simple bot to allow users to edit their color via a text command withi
 8. Once the bot is successfully added to your server, it should have a new role with the same name as the `app` you created in Discord. Go into Server Settings -> Roles, and **drag the role to the top/highest priority**. This *must* be done, or the bot will not be able to manage the color roles as intended and **will not work properly**. The role order should look like this, where `ColorBot` is the role of my bot user: ![example](https://cdn.discordapp.com/attachments/306934974727192578/307001511886716929/asdf.PNG)
 9. Run `npm start` and the bot should run and work as intended.
 
+## Usage
+Simply type `.color #XXXXXX` into a text channel the bot has access to, where `#XXXXXX` is a valid hex code.
+
+This may be changed in the future to support looser formats, such as `XXXXXX` instead of `#XXXXXX`.
+
 ## License
 Provided under the MIT License.
