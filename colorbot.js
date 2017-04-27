@@ -42,7 +42,10 @@ let createGuildRole = (guildMember, hex, msg) => {
             });
     } else {
         guild.createRole(newRole)
-            .then((role) => assignGuildMemberRole(guildMember, role, msg));
+            .then((role) => {
+                msg.channel.sendMessage(`Successfully created new role called ${roleData.name} with color #${roleData.color.toString(16)}.`);
+                assignGuildMemberRole(guildMember, role, msg);
+            });
     }
 };
 
@@ -61,7 +64,12 @@ let setRolePosition = (guildMember, role, msg) => {
 
     role.setPosition(highestPriorityPosition)
         .then((role) => {
+            console.log('Successfully moved position.');
             msg.channel.sendMessage(`Successfully moved role priority of ${role.name} to the highest priority.`)
+        })
+        .catch((err) => {
+            console.log('Failed to move position');
+            console.error(err);
         });
 };
 
