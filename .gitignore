@@ -1,4 +1,5 @@
 node_modules/
 *.log
 *.out
+app_credentials.json
 **/.DS_Store
