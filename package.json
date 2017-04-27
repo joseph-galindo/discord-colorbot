@@ -1,0 +1,21 @@
+{
+  "name": "discord-colorbot",
+  "version": "1.0.0",
+  "description": "Discord bot that lets users set colors via roles.",
+  "contributors": [
+    {
+      "name": "Joseph Galindo",
+      "email": "joseph.galindo18@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.0.0"
+  },
+  "scripts": {
+    "start": "node colorbot.js"
+  },
+  "devDependencies": {
+    "forever": "^0.15.3"
+  }
+}
