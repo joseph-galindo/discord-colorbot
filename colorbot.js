@@ -43,7 +43,7 @@ let createGuildRole = (guildMember, hex, msg) => {
     } else {
         guild.createRole(newRole)
             .then((role) => {
-                msg.channel.sendMessage(`Successfully created new role called ${roleData.name} with color #${roleData.color.toString(16)}.`);
+                msg.channel.sendMessage(`Successfully created new role called ${role.name} with color #${role.color.toString(16)}.`);
                 assignGuildMemberRole(guildMember, role, msg);
             });
     }
