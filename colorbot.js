@@ -20,11 +20,11 @@ let processRequest = (msg, hex) => {
     let author = msg.author;
 
     fetchMember(guild, author, (response) => {
-        createGuildRole(response, hex)
+        createGuildRole(response, hex, msg)
     });
 };
 
-let createGuildRole = (guildMember, hex) => {
+let createGuildRole = (guildMember, hex, msg) => {
     let guild = guildMember.guild;
     let newRole = {
         name: `color-${guildMember.user.username}`,
@@ -36,26 +36,33 @@ let createGuildRole = (guildMember, hex) => {
 
     if (existingRole) {
         existingRole.edit(newRole)
-            .then((roleData) => setRolePosition(guildMember, existingRole));
+            .then((roleData) => {
+                msg.channel.sendMessage(`Successfully edited color of ${roleData.name} to #${roleData.color.toString(16)}.`);
+                setRolePosition(guildMember, existingRole, msg)
+            });
     } else {
         guild.createRole(newRole)
-            .then((role) => assignGuildMemberRole(guildMember, role));
+            .then((role) => assignGuildMemberRole(guildMember, role, msg));
     }
 };
 
-let assignGuildMemberRole = (guildMember, role) => {
+let assignGuildMemberRole = (guildMember, role, msg) => {
     guildMember.addRole(role)
         .then((member) => {
             let savedRole = member.roles.find('name', role.name);
-            setRolePosition(guildMember, savedRole);
+            setRolePosition(guildMember, savedRole, msg);
         });
 };
 
-let setRolePosition = (guildMember, role) => {
+let setRolePosition = (guildMember, role, msg) => {
     let guild = guildMember.guild;
-    let highestPriorityPosition = guildMember.guild.roles.size - 1;
+    // Subtract 2, since the ColorBot role will be at guildMember.guild.roles.size - 1, and discord does not complain about this at all for some bad reason.
+    let highestPriorityPosition = guildMember.guild.roles.size - 2;
 
-    role.setPosition(highestPriorityPosition);
+    role.setPosition(highestPriorityPosition)
+        .then((role) => {
+            msg.channel.sendMessage(`Successfully moved role priority of ${role.name} to the highest priority.`)
+        });
 };
 
 // Listeners
